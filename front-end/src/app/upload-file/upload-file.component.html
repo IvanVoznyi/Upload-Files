@@ -1,0 +1,9 @@
+<div class="drop-files" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+    Drop files here
+</div>
+  
+@for (upload of files; track upload.name) {
+    @if (uploadProgress[upload.name]) {
+        <span>{{upload.name}} - {{uploadProgress[upload.name]}}</span>
+    }
+}
