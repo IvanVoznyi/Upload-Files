@@ -1,5 +1,4 @@
-  import { HttpClient, HttpClientModule, HttpEventType, HttpProgressEvent } from '@angular/common/http';
-  import { Component, inject } from '@angular/core';
+  import { Component } from '@angular/core';
 
   interface Chunk {
     chunk: ArrayBuffer;
@@ -10,7 +9,6 @@
   @Component({
     selector: 'app-upload-file',
     standalone: true,
-    imports: [HttpClientModule],
     templateUrl: './upload-file.component.html',
     styleUrl: './upload-file.component.scss'
   })
@@ -63,7 +61,7 @@
 
     async uploadFile(file: File) {
       const chunkSize = 5 * 1024 * 1024; // 5 MB chunk size
-      this.uploadProgress[file.name] = 0; // Initialize progress for this file
+      this.uploadProgress[file.name] = 0;
       let totalUploaded = 0;
 
       for await (const { chunk, chunkIndex, totalChunks } of this.getFileChunks(file, chunkSize)) {
@@ -88,11 +86,11 @@
             throw new Error(`Upload failed for chunk ${chunkIndex}: ${response.statusText}`);
           }
 
-          totalUploaded += chunk.byteLength; // Add chunk size to total uploaded
+          totalUploaded += chunk.byteLength;
 
-          const uploadedSize = totalUploaded; // Use totalUploaded for progress calculation
+          const uploadedSize = totalUploaded;
           const totalSize = file.size;
-          const progress = Math.round((uploadedSize / totalSize) * 100); // Calculate progress
+          const progress = Math.round((uploadedSize / totalSize) * 100);
     
           this.uploadProgress[file.name] = progress
           console.log(`Chunk ${chunkIndex} uploaded successfully. Progress: ${progress}%`);
@@ -102,8 +100,6 @@
           }
         }
       }
-    
       console.log('File uploaded successfully!');
-      // delete this.uploadProgress[file.name]; // Remove progress for uploaded file
     }
   }
