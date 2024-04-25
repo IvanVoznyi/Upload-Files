@@ -16,20 +16,27 @@
   })
   export class UploadFileComponent {
     protected files: Array<File> = []
-    protected uploadProgress: { [fileName: string]: number } = {}; // Track upload progress for each file
+    protected uploadProgress: { [fileName: string]: number } = {};
     protected uploadStatus: string = '';
 
     onDragOver(event: DragEvent) {
       event.preventDefault();
+      (event.target as HTMLDivElement).classList.add('drag-over');
     }
 
     async onDrop(event: DragEvent) {
       event.preventDefault();
+      (event.target as HTMLDivElement).classList.remove('drag-over');
       
       if (event.dataTransfer && event.dataTransfer.files) {
         this.files = Array.from(event.dataTransfer.files)
         await this.uploadFile(event.dataTransfer.files[0]);
       }
+    }
+
+    onDragLeave(event: DragEvent) {
+      event.preventDefault();
+      (event.target as HTMLDivElement).classList.remove('drag-over');
     }
 
     async* getFileChunks(file: File, chunkSize: number): AsyncGenerator<Chunk> {

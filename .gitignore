@@ -43,3 +43,6 @@ front-end/Thumbs.db
 
 back-end/target
 back-end/uploads
+back-end/.DS_Store
+
+.DS_Store

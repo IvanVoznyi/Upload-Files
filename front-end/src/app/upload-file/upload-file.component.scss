@@ -1,4 +1,30 @@
-.drop-files {
-    padding: 10px;
-    border: 1px solid black;
+.drop-zone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.drop-text {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.drop-zone.drag-over {
+    border: 2px dashed #007bff;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+
+    > progress {
+        height: 10px;
+        background-color: #ddd;
+        border: 1px solid #ccc;
+        width: 100%;
+    }
 }

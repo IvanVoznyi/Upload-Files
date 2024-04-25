@@ -1,9 +1,12 @@
-<div class="drop-files" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
-    Drop files here
+<div class="drop-zone" (dragover)="onDragOver($event)" (drop)="onDrop($event)" (dragleave)="onDragLeave($event)">
+    <span class="drop-text">Drag & Drop files here</span>
 </div>
-  
+
 @for (upload of files; track upload.name) {
     @if (uploadProgress[upload.name]) {
-        <span>{{upload.name}} - {{uploadProgress[upload.name]}}</span>
+    <div class="progress-container">
+        <span>{{upload.name}}</span>
+        <progress [value]="uploadProgress[upload.name]" max="100"></progress>
+    </div>
     }
 }
